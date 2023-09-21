@@ -1,4 +1,4 @@
-se# Projeto com Inteligência Artificial 
+# Projeto com Inteligência Artificial 
 
 Desenvolvi com o auxílio do evento "[<nlw/> IA](https://www.rocketseat.com.br/nlw)", feito pela plataforma de aprendizado continuo de programação, [Rocketseat](https://www.rocketseat.com.br/).
 
