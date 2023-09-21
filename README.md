@@ -1,4 +1,4 @@
-# Projeto com Inteligência Artificial 
+se# Projeto com Inteligência Artificial 
 
 Desenvolvi com o auxílio do evento "[<nlw/> IA](https://www.rocketseat.com.br/nlw)", feito pela plataforma de aprendizado continuo de programação, [Rocketseat](https://www.rocketseat.com.br/).
 
@@ -42,3 +42,15 @@ Inicie a host
 ```
 
 Depois de fazer todos os passos citados entre na host criada no último comando para abrir em seu navegador o projeto.
+
+## 📖 Bibliotecas Utilizadas:
+
+| [@xenova/transformers](https://huggingface.co/docs/transformers.js/index) | ^2.6.0 |
+|------------------|----------|
+| [axios](https://axios-http.com/docs/intro) | ^1.5.0 |
+| [cors](https://www.npmjs.com/package/cors) | ^2.8.5 |
+| [express](https://expressjs.com/pt-br/) | ^4.18.2 |
+| [ffmpeg-static](https://www.npmjs.com/package/ffmpeg-static) | ^5.2.0 |
+| [fluent-ffmpeg](https://npmdoc.github.io/node-npmdoc-fluent-ffmpeg/build/apidoc.html) | ^2.1.2 |
+| [node-wav](https://www.npmjs.com/package/node-wav) | ^0.0.2 |
+| [ytdl-core](https://www.npmjs.com/package/ytdl-core) | 4.10.0 |
