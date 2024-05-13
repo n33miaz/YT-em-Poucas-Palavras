@@ -1,36 +1,48 @@
 import fs from "fs"
 import wav from "node-wav"
 import ffmpeg from "fluent-ffmpeg"
-import ffmpegStatic from "ffmpeg-static"
+import { getTmpPath } from "./utils/tmp.js" // Importe a função para obter caminho temporário
 
-const filePath = "./tmp/audio.mp4"
-const outputPath = filePath.replace(".mp4", ".wav")
-
-export const convert = () =>
+export const convert = (filePath) => // Recebe o caminho do arquivo como argumento
   new Promise((resolve, reject) => {
-    console.log("Convertendo o vídeo...")
+    try {
+      const outputPath = getTmpPath("audio.wav") // Usando caminho temporário
+      console.log("Convertendo o vídeo...")
 
-    ffmpeg.setFfmpegPath(ffmpegStatic)
-    ffmpeg()
-      .input(filePath)
-      .audioFrequency(16000)
-      .audioChannels(1)
-      .format("wav")
-      .on("end", () => {
-        const file = fs.readFileSync(outputPath)
-        const fileDecoded = wav.decode(file)
+      // Verifica se o ffmpeg está instalado no sistema
+      ffmpeg.ffprobe(filePath, (err, metadata) => {
+        if (err) {
+          console.error("ffmpeg não encontrado. Por favor, instale-o.");
+          reject(err); // Rejeita a promise se o ffmpeg não for encontrado
+          return;
+        }
 
-        const audioData = fileDecoded.channelData[0]
-        const floatArray = new Float32Array(audioData)
+        ffmpeg()
+          .input(filePath)
+          .audioFrequency(16000)
+          .audioChannels(1)
+          .format("wav")
+          .on("end", () => {
+            const file = fs.readFileSync(outputPath)
+            const fileDecoded = wav.decode(file)
 
-        console.log("Vídeo convertido com sucesso!")
+            const audioData = fileDecoded.channelData[0]
+            const floatArray = new Float32Array(audioData)
 
-        resolve(floatArray)
-        fs.unlinkSync(outputPath)
-      })
-      .on("error", (error) => {
-        console.log("Erro ao converter o vídeo", error)
-        reject(error)
-      })
-      .save(outputPath)
-  })
+            console.log("Vídeo convertido com sucesso!")
+
+            resolve(floatArray)
+            fs.unlinkSync(outputPath) // Exclui o arquivo temporário após o uso
+          })
+          .on("error", (error) => {
+            console.log("Erro ao converter o vídeo", error)
+            reject(error)
+          })
+          .save(outputPath)
+      });
+    } catch (error) {
+      console.log("Erro ao converter o vídeo", error)
+      reject(error)
+    }
+  }
+)

@@ -1,56 +1,90 @@
-# Projeto com Inteligência Artificial 
+# Resumindo Shorts do YouTube com IA
 
-Desenvolvi com o auxílio do evento "[nlw IA](https://www.rocketseat.com.br/nlw)", feito pela plataforma de aprendizado continuo de programação, [Rocketseat](https://www.rocketseat.com.br/).
+Este projeto utiliza o poder da Inteligência Artificial para resumir automaticamente o conteúdo de Shorts do YouTube. 
 
-## 💡 Tecnologias Utilizadas:
+Com ele, você pode:
 
-**JavaScript, HTML e CSS em conjuto de Inteligências Artificiais.**
+* Colar a URL de um Short do YouTube.
+* Obter uma transcrição precisa do áudio do vídeo.
+* Receber um resumo conciso e informativo do conteúdo.
 
-## 🔧 Como Desenvolvi?
+## 🧠 Como Funciona?
 
-Usando as ferramentas citadas acima foquei primeiro na parte visual da página e depois criando um servidor local com o .NET, separei essas duas etapas nas duas pastas "web" e "server". Depois disso, foquei na usabilidade do projeto, utilizando JS para fazer o download de um determinado vídeo shorts e armazenando na pasta "tmp" e convertendo automaticamente o arquivo .mp4 do vídeo para .wav, tal como exigido nas bibliotecas da IA. Após isso, fiz a IA reconhecer o .wav e separar o audio do arquivo de vídeo. Usando outra IA, indentifiquei a fala no áudio e tranformei em texto, com esse texto foi só resumi-lo e devolver a "web".
-## 📍 Como Rodar o Código Localmente?
+O projeto combina tecnologias web e inteligência artificial para realizar o resumo:
 
-Clone o projeto
+1. **Interface do Usuário:**  A interface web, construída com HTML, CSS e JavaScript, permite que o usuário insira a URL do Short.
+2. **Download do Vídeo:**  O servidor, utilizando Node.js e a biblioteca `ytdl-core`, baixa o áudio do vídeo do YouTube.
+3. **Conversão de Áudio:**  O áudio baixado (no formato MP4) é convertido para WAV usando `fluent-ffmpeg` para compatibilidade com a IA de transcrição.
+4. **Transcrição de Áudio para Texto:**  A biblioteca `@xenova/transformers`, com o modelo `Xenova/whisper-small`, transcreve o áudio para texto.
+5. **Limpeza de Texto:**  O texto transcrito é limpo, removendo caracteres especiais e espaços em branco desnecessários, para otimizar a entrada da IA de resumo.
+6. **Resumo do Texto:**  A IA de resumo, utilizando `@xenova/transformers` com o modelo `Xenova/distilbart-cnn-12-6`, gera um resumo conciso do texto transcrito.
+7. **Exibição do Resumo:**  O resumo gerado é enviado de volta para a interface web e exibido para o usuário.
 
-```bash
-  git clone https://github.com/n33miaz/YT_em_Poucas_Palavras
-```
+## 🛠️ Tecnologias Utilizadas
 
-Entre no diretório do projeto
+**Front-end:**
 
-```bash
-  cd YT_em_Poucas_Palavras
-```
+* HTML
+* CSS
+* JavaScript
+* Vite (ferramenta de build)
+* Phosphor Icons (biblioteca de ícones)
 
-Instale as dependências
+**Back-end:**
 
-```bash
-  npm install
-```
+* Node.js
+* Express (framework web)
+* @xenova/transformers (biblioteca de IA)
+* ytdl-core (download de vídeos do YouTube)
+* fluent-ffmpeg (conversão de áudio)
+* node-wav (processamento de arquivos WAV)
+* axios (requisições HTTP)
+* cors (permite requisições de diferentes origens)
 
-Inicie o servidor
+## 🚀 Como Executar o Projeto
 
-```bash
-  npm run server
-```
+1. **Clone o Repositório:**
 
-Inicie a host
+   ```bash
+   git clone https://github.com/seu-usuario/YT_em_Poucas_Palavras
+   ```
+2. **Navegue até o Diretório do Projeto:**
 
-```bash
-  npm run web
-```
+   ```bash
+    cd YT_em_Poucas_Palavras
+   ```
+3. **Instale as Dependências:**
 
-Depois de fazer todos os passos citados entre na host criada no último comando para abrir em seu navegador o projeto.
+   ```bash
+    npm install
+   ```
+4. **Inicie o Servidor:**
 
-## 📖 Bibliotecas Utilizadas:
+   ```bash
+    npm run server
+   ```
+5. **Inicie a Interface Web:**
 
-| [@xenova/transformers](https://huggingface.co/docs/transformers.js/index) | ^2.6.0 |
-|------------------|----------|
-| [axios](https://axios-http.com/docs/intro) | ^1.5.0 |
-| [cors](https://www.npmjs.com/package/cors) | ^2.8.5 |
-| [express](https://expressjs.com/pt-br/) | ^4.18.2 |
-| [ffmpeg-static](https://www.npmjs.com/package/ffmpeg-static) | ^5.2.0 |
-| [fluent-ffmpeg](https://npmdoc.github.io/node-npmdoc-fluent-ffmpeg/build/apidoc.html) | ^2.1.2 |
-| [node-wav](https://www.npmjs.com/package/node-wav) | ^0.0.2 |
-| [ytdl-core](https://www.npmjs.com/package/ytdl-core) | 4.10.0 |
+   ```bash
+    npm run web
+   ```
+6. **Acesse o Projeto:**
+
+Abra seu navegador web e acesse `http://localhost:1234/` (ou a porta que o Vite estiver utilizando).
+
+## 📚 Dependências do Projeto
+
+As dependências do projeto estão listadas no arquivo `package.json`. Elas podem ser instaladas com o comando `npm install`.
+
+Dependências Principais:
+
+* **@xenova/transformers:** Fornece modelos de IA para transcrição e resumo.
+* **ytdl-core:** Permite baixar vídeos do YouTube.
+* **fluent-ffmpeg:**  Facilita a conversão de arquivos de áudio e vídeo.
+* **express:** Framework web para Node.js, utilizado para criar o servidor.
+
+## 📝 Observações
+
+* **ffmpeg:** O projeto utiliza o `ffmpeg` para conversão de áudio. Certifique-se de que o `ffmpeg` esteja instalado em seu sistema. Você pode baixá-lo em [https://ffmpeg.org/](https://ffmpeg.org/).
+
+* **Requisitos do Sistema:**  O projeto requer Node.js e npm instalados em seu sistema.
